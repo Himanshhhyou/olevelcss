@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Viewer</title>
+
+  <!-- Highlight.js Light Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      color: #363636;
+      background-color: #f9f9f9;
+    }
+
+    .sidebar {
+      transition: transform 0.3s ease;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .code-output-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      background: #fdfdfd;
+      border: 1px solid #ddd;
+      height: 100vh;
+    }
+
+    .code-block-wrapper {
+      display: flex;
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .line-numbers {
+      user-select: none;
+      padding: 1rem 0.5rem;
+      color: #6b7280;
+      background: #f3f3f3;
+      text-align: right;
+      border-right: 1px solid #ddd;
+      min-width: 3rem;
+    }
+
+    pre.code {
+      margin: 0;
+      padding: 1rem;
+      white-space: pre;
+      flex: 1;
+      overflow-x: auto;
+    }
+
+    iframe#live-preview {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+
+    @keyframes pulseGlow {
+
+      0%,
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+      }
+
+      50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+      }
+    }
+
+    .new-label {
+      animation: pulseGlow 1.5s infinite;
+      top: 8px;
+      right: 8px;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body class="font-sans">
+
+  <!-- Header -->
+  <header class="bg-white text-gray-800 p-4 flex justify-between items-center shadow-md">
+    <div class="flex items-center gap-2 text-lg font-bold">
+      <i class="fas fa-code"></i> LearnAngle
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="menu-btn" class="text-2xl md:hidden p-2 rounded hover:bg-gray-200" onclick="toggleSidebar()">
+        <i id="hamburger-icon" class="fas fa-bars"></i>
+      </button>
+
+    </div>
+  </header>
+
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black bg-opacity-25 hidden z-40" onclick="closeSidebar()"></div>
+
+  <main class="flex flex-1">
+    <!-- Sidebar -->
+    <aside id="sidebar"
+      class="sidebar w-72 bg-white border-r border-gray-300 p-4 flex flex-col gap-4 fixed md:static top-0 left-0 h-full z-50 -translate-x-full md:translate-x-0 overflow-y-auto">
+      <!-- Tabs -->
+      <div class="flex justify-between items-center p-1 rounded-lg">
+        <button id="files-tab" class="flex-1 py-2 rounded-md bg-blue-500 text-white font-medium">Files</button>
+        <button id="projects-tab" class="flex-1 py-2 rounded-md text-gray-700">Projects</button>
+      </div>
+
+      <!-- Search -->
+      <input id="search-bar" type="text"
+        class="p-2 border border-gray-400 rounded-lg bg-white text-gray-800 mt-2 focus:ring-2 focus:ring-blue-500"
+        placeholder="Search files..." oninput="filterFiles(this.value)" />
+
+      <!-- 🔹 Files List -->
+      <div id="files-section" class="file-list flex flex-col gap-2 max-h-[80vh] overflow-y-auto text-sm mt-2">
+   
+
+
+
+        <div
+          class="file-item p-2 flex items-center gap-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-500 hover:text-white relative"
+          onclick="loadCode('class-codes/01_intro.html')">
+          <i class="fa-solid fa-file"></i>
+          <span>01_intro.html</span>
+          <span
+            class="new-label absolute text-red-500 bg-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse shadow-lg">
+            NEW
+          </span>
+        </div>
+
+          
+          <!--
+            <div
+            class="file-item p-2 flex items-center gap-2 bg-gray-100 rounded-lg cursor-pointer hover:bg-blue-500 hover:text-white"
+            onclick="loadCode('class-codes/61_object.html')"><i class="fas fa-file-code"></i>
+            61_object.html</div>
+            -->
+
+                  
+        </div>
+
+        <!-- 🔹 Projects List -->
+
+
+        <div id="projects-section" class="hidden flex flex-col gap-2 max-h-[80vh] overflow-y-auto text-sm mt-2">
+
+
+          <!-- <div
+            class="file-item p-2 flex items-center gap-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-500 hover:text-white relative"
+            onclick="loadCode('mini-projects/dogeshBhai.html')">
+            <i class="fa-solid fa-dog"></i>
+            <span> dogeshBhai.html</span>
+            <span
+              class="new-label absolute text-red-500 bg-white text-xs font-bold px-2 py-0.5 rounded-full animate-pulse shadow-lg">
+              NEW
+            </span>
+          </div> -->
+
+
+  
+
+
+<!-- 
+          <div
+            class="file-item p-2 flex items-center gap-2 bg-gray-100 rounded-lg cursor-pointer hover:bg-blue-500 hover:text-white"
+            onclick="loadCode('mini-projects/indian-number-check.html')"><i class="fa-solid fa-phone"></i> indian-number-check.html
+          </div> -->
+
+
+         </div>
+
+
+    </aside>
+
+    <!-- Content -->
+    <section class="content flex-1 p-6 overflow-y-auto fade-in">
+      <!-- Buttons -->
+      <div class="flex justify-between items-center mb-4 flex-wrap gap-2">
+        <div class="flex gap-2">
+          <button id="copy-btn"
+            class="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 flex items-center gap-1"
+            onclick="copyCode()">
+            <i class="fas fa-copy"></i> Copy
+          </button>
+
+          <button id="download-btn"
+            class="p-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 flex items-center gap-1"
+            onclick="downloadCode()">
+            <i class="fas fa-download"></i> Download
+          </button>
+
+          <button id="view-btn" class="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 flex items-center gap-1"
+            onclick="toggleOutput()">
+            <i class="fas fa-eye"></i> View Output
+          </button>
+        </div>
+      </div>
+
+      <!-- Code + Output -->
+      <div class="code-output-container">
+        <div class="code-block-wrapper">
+          <pre class="line-numbers" id="line-numbers"></pre>
+          <pre><code id="code-block" class="code language-none"></code></pre>
+        </div>
+        <iframe id="live-preview" class="hidden"></iframe>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>
+    let currentFilename = '';
+    let showingOutput = false;
+
+    async function loadCode(filename) {
+      try {
+        const res = await fetch(filename);
+        if (!res.ok) throw new Error("File not found");
+        const text = await res.text();
+        currentFilename = filename;
+
+        const codeBlock = document.getElementById("code-block");
+        const lineNumbers = document.getElementById("line-numbers");
+        const ext = filename.split('.').pop();
+        codeBlock.className = `code language-${ext === "css" ? "css" : ext === "js" ? "javascript" : "html"}`;
+        codeBlock.textContent = text;
+        hljs.highlightElement(codeBlock);
+
+        // Line numbers
+        const lines = text.split('\n').length;
+        lineNumbers.textContent = Array.from({ length: lines }, (_, i) => i + 1).join('\n');
+
+        const iframe = document.getElementById("live-preview");
+        if (ext === "html") {
+          iframe.srcdoc = text;
+          document.getElementById("view-btn").disabled = false;
+        } else {
+          iframe.srcdoc = "";
+          document.getElementById("view-btn").disabled = true;
+        }
+
+        // Reset toggle
+        showingOutput = false;
+        codeBlock.style.display = "block";
+        lineNumbers.style.display = "block";
+        iframe.style.display = "none";
+        document.getElementById("view-btn").innerHTML = '<i class="fas fa-eye"></i> View Output';
+
+      } catch (err) {
+        document.getElementById("code-block").textContent = "⚠️ " + err.message;
+        document.getElementById("line-numbers").textContent = "";
+        document.getElementById("live-preview").style.display = "none";
+      }
+    }
+
+    function copyCode() {
+      navigator.clipboard.writeText(document.getElementById("code-block").textContent);
+    }
+
+    function downloadCode() {
+      if (!currentFilename) return;
+      const blob = new Blob([document.getElementById("code-block").textContent], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = currentFilename;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function toggleOutput() {
+      const codeBlock = document.getElementById("code-block");
+      const lineNumbers = document.getElementById("line-numbers");
+      const iframe = document.getElementById("live-preview");
+      const viewBtn = document.getElementById("view-btn");
+
+      showingOutput = !showingOutput;
+
+      if (showingOutput) {
+        codeBlock.style.display = "none";
+        lineNumbers.style.display = "none";
+        iframe.style.display = "block";
+        viewBtn.innerHTML = '<i class="fas fa-code"></i> View Code';
+      } else {
+        codeBlock.style.display = "block";
+        lineNumbers.style.display = "block";
+        iframe.style.display = "none";
+        viewBtn.innerHTML = '<i class="fas fa-eye"></i> View Output';
+      }
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      const icon = document.getElementById("hamburger-icon");
+      sidebar.classList.toggle("-translate-x-full");
+      overlay.classList.toggle("hidden");
+      icon.classList.toggle("fa-bars");
+      icon.classList.toggle("fa-times");
+    }
+
+    function closeSidebar() {
+      document.getElementById("sidebar").classList.add("-translate-x-full");
+      document.getElementById("overlay").classList.add("hidden");
+      document.getElementById("hamburger-icon").classList.add("fa-bars");
+      document.getElementById("hamburger-icon").classList.remove("fa-times");
+    }
+
+    document.getElementById("files-tab").addEventListener("click", () => {
+      document.getElementById("files-section").classList.remove("hidden");
+      document.getElementById("projects-section").classList.add("hidden");
+      document.getElementById("search-bar").style.display = "block";
+      document.getElementById("files-tab").classList.add("bg-blue-500", "text-white");
+      document.getElementById("projects-tab").classList.remove("bg-blue-500", "text-white");
+    });
+
+    document.getElementById("projects-tab").addEventListener("click", () => {
+      document.getElementById("files-section").classList.add("hidden");
+      document.getElementById("projects-section").classList.remove("hidden");
+      document.getElementById("search-bar").style.display = "none";
+      document.getElementById("projects-tab").classList.add("bg-blue-500", "text-white");
+      document.getElementById("files-tab").classList.remove("bg-blue-500", "text-white");
+    });
+
+    function filterFiles(query) {
+      document.querySelectorAll("#files-section .file-item").forEach(item => {
+        item.style.display = item.textContent.toLowerCase().includes(query.toLowerCase()) ? "flex" : "none";
+      });
+    }
+  </script>
+</body>
+
+</html>
