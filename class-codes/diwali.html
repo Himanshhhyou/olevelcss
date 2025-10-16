@@ -1,79 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Document</title>
-    <style>
-        body{
-            display: flex;;;
-        }
-        #bulb{
-            margin-left: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        #rope{
-            width: 5px;
-            height: 160px;
-            background-color: black;
-            
-        }
-        #glass{
-            background-color: rgba(0, 255, 51, 0.4);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-        }
-        #small{
-            width: 50px;
-            height: 50px;
-            background-color: rgb(241, 239, 127);
-            margin: auto;
-            border-radius: 50%;
-        }
-        #holder{
-            background-color: black;
-            width: 20px;
-            height: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Diwali Bulbs ✨</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      height: 100vh;
+      background: #000;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .bulb {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .rope {
+      width: 5px;
+      height: 120px;
+      background-color: #b5b5b5;
+    }
+
+    .holder {
+      background-color: #b2b2b2;
+      width: 15px;
+      height: 10px;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .glass {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 33px;
+      font-weight: 700;
+      text-shadow: 0 0 25px white;
+    }
+    .glass span{
+        font-size: 16px;
+    }
+
+    /* Unique bulb colors */
+    .red .glass {
+      background: rgba(255, 0, 0, 0.25);
+      box-shadow: 0 0 15px 3px rgba(255,0,0,0.8);
+    }
+
+    .orange .glass {
+      background: rgba(255, 165, 0, 0.25);
+      box-shadow: 0 0 15px 3px rgba(255,165,0,0.8);
+    }
+
+    .yellow .glass {
+      background: rgba(255, 255, 0, 0.25);
+      box-shadow: 0 0 15px 3px rgba(255,255,0,0.8);
+    }
+
+    .green .glass {
+      background: rgba(0, 255, 0, 0.25);
+      box-shadow: 0 0 15px 3px rgba(0,255,0,0.8);
+    }
+
+    .blue .glass {
+      background: rgba(0, 0, 255, 0.25);
+      box-shadow: 0 0 15px 3px rgba(0,0,255,0.8);
+    }
+
+    .pink .glass {
+      background: rgba(255, 0, 255, 0.25);
+      box-shadow: 0 0 15px 3px rgba(255,0,255,0.8);
+    }
+
+  </style>
 </head>
 <body>
-    <div id="bulb">
-        <div id="rope"></div>
-        <div id="holder"></div>
-        <div id="glass">
-            <div id="small"></div>
-        </div>
+  <div class="bulb red">
+    <div class="rope"></div>
+    <div class="holder"></div>
+    <div class="glass">
+      <div class="small"></div>
+      <span>D</span>
     </div>
-    <div id="bulb">
-        <div id="rope"></div>
-        <div id="holder"></div>
-        <div id="glass">
-            <div id="small"></div>
-        </div>
+  </div>
+
+  <div class="bulb orange">
+    <div class="rope"></div>
+    <div class="holder"></div>
+    <div class="glass">
+      <div class="small"></div>
+      <span>I</span>
     </div>
-    <div id="bulb">
-        <div id="rope"></div>
-        <div id="holder"></div>
-        <div id="glass">
-            <div id="small"></div>
-        </div>
+  </div>
+
+  <div class="bulb yellow">
+    <div class="rope"></div>
+    <div class="holder"></div>
+    <div class="glass">
+      <div class="small"></div>
+      <span>W</span>
     </div>
-    <div id="bulb">
-        <div id="rope"></div>
-        <div id="holder"></div>
-        <div id="glass">
-            <div id="small"></div>
-        </div>
+  </div>
+
+  <div class="bulb green">
+    <div class="rope"></div>
+    <div class="holder"></div>
+    <div class="glass">
+      <div class="small"></div>
+      <span>A</span>
     </div>
-    <div id="bulb">
-        <div id="rope"></div>
-        <div id="holder"></div>
-        <div id="glass">
-            <div id="small"></div>
-        </div>
+  </div>
+
+  <div class="bulb blue">
+    <div class="rope"></div>
+    <div class="holder"></div>
+    <div class="glass">
+      <div class="small"></div>
+      <span>L</span>
     </div>
+  </div>
+
+  <div class="bulb pink">
+    <div class="rope"></div>
+    <div class="holder"></div>
+    <div class="glass">
+      <div class="small"></div>
+      <span>I</span>
+    </div>
+  </div>
 </body>
 </html>
