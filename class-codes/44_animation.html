@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>loading</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        div {
+            height: 10px;
+            display: flex;
+            border-radius: 10px;
+            margin: 50px;           
+        }
+        .dot{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: darkred;
+            border-radius: 10px;
+            margin: 5px;
+            opacity: 0;
+        }
+        .a{
+            animation: show 1s infinite; 
+        }
+        .b{
+            animation: show 1s  infinite;
+            animation-delay: 0.1s; 
+        }
+        .c{
+            animation: show 1s  infinite; 
+            animation-delay: 0.2s; 
+        }
+        .d{
+            animation: show 1s  infinite; 
+            animation-delay: 0.3s; 
+        }
+        .e{
+            animation: show 1s  infinite; 
+            animation-delay: 0.4s; 
+        }
+        @keyframes show{
+            100%{        
+               opacity: 1;   
+            }
+       }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="dot a"></div>
+        <div class="dot b"></div>
+        <div class="dot c"></div>
+        <div class="dot d"></div>
+        <div class="dot e"></div>
+       
+    </div>
+</body>
+</html>

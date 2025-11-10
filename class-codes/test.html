@@ -1,12 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: Arial, sans-serif;
+            height: 100vh;
+        }
+        header{
+            width: 100%;
+            height: 50px;
+        }
+        header .top{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding:10px 60px;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ccc;
+        }
+        .left{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+
+
+        }
+        .left .line{
+            width: 1px;
+            height: 120%;
+            background-color: black;
+            margin: 0 10px;
+        }
+        .goi p{
+            text-align: right;
+        }
+        .right{
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    <h1 class="w3-blue w3-panel w3-center w3-card-4">Hello W3CSS</h1>
-    <button class="w3-button w3-green">Login</button>
-    img
+    <header>
+        <div class="top">
+            <div class="left">
+                <div class="goi">
+                    <p>भारत सरकार <br> Government of India</p>
+                </div>
+                <div class="line"></div>
+                <div class="moi">
+                    <p>शिक्षा मंत्रालय <br> Ministry of Education</p>
+
+                </div>
+            </div>
+            <div class="right">
+                <p>Skip to main content</p>
+                <p>Sitemap</p>
+                <p>A-</p>
+                <p>A</p>
+                <p>A+</p>
+            </div>
+        </div>
+
+
+
+        <div class="logo-area">
+            <img src="dep" alt="Logo">
+            <h1>JOINT CSIR-UGC NET</h1>
+            <img src="" alt="">
+        </div>
+    </header>
 </body>
 </html>
